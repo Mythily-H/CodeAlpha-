@@ -1,0 +1,39 @@
+# Predefined stock prices (hardcoded dictionary)
+stock_prices = {
+    "AAPL": 180,
+    "TSLA": 250,
+    "GOOG": 2800,
+    "MSFT": 300,
+    "AMZN": 3500
+}
+
+total_investment = 0
+
+print("Available stocks and prices:")
+for stock, price in stock_prices.items():
+    print(f"{stock}: ${price}")
+
+while True:
+    stock_name = input("\nEnter stock symbol (or type 'done' to finish): ").upper()
+    if stock_name == "DONE":
+        break
+    if stock_name not in stock_prices:
+        print("Stock not found! Please try again.")
+        continue
+
+    quantity = input(f"Enter quantity for {stock_name}: ")
+    if not quantity.isdigit():
+        print("Please enter a valid number.")
+        continue
+    quantity = int(quantity)
+
+    total_investment += stock_prices[stock_name] * quantity
+
+print(f"\nTotal Investment: ${total_investment}")
+
+# Optional: Save to file
+save_option = input("Save result to file? (y/n): ").lower()
+if save_option == "y":
+    with open("portfolio.txt", "w") as file:
+        file.write(f"Total Investment: ${total_investment}\n")
+    print("Result saved to portfolio.txt")
